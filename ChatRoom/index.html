@@ -1,0 +1,115 @@
+ <link rel="stylesheet" href="general.css">
+ <script src='chat.js'> </script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+
+	<!-- custom scrollbar plugin -->
+	<script src="../jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- custom scrollbar stylesheet -->
+	<link rel="stylesheet" href="../jquery.mCustomScrollbar.css">
+	<!-- stylesheet for demo and examples -->
+	<link rel="stylesheet" href="style.css">
+
+<div class="container">
+
+	
+		<div id="Users"></div>
+		<div id="rooms"></div>
+				<!-- content -->
+		<div class="content">
+			<p id="message"></p> 		
+		</div>
+	<form name="windingroad" id="windingroad" >
+		
+		<!-- Name needed for the form submit js; class for styling,
+		id and onkeyUP for jumping to next field -->
+		<input name="one" class="field" autocomplete="off" id="one" type="text" maxlength="30" onkeyUP="moveOnMax(this,'two')" placeholder="Enter message" autofocus>
+
+		<div class="below"><button id="go" >go</div>
+		
+		<div class="clear"></div>
+		
+	</form>
+	 
+</div>
+
+<script>
+
+	var socket = io.connect('http://localhost:8080');
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('connect', function(){
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+		socket.emit('adduser', prompt("What's your name?"));
+		//socket.emit('adduser', "Ken");
+	});
+	
+	socket.on('showUserNames',function(usersInRoom){
+		//show users in the room
+		$('#Users').empty();
+		for(var key in usersInRoom){
+				$('#Users').append(key+'<br>');
+				console.log(key);
+		}
+	
+	});	
+	// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('updatechat', function (username, data) {
+		$('#message').append('<b>'+username + ':</b> ' + data + '<br>');
+	});
+	// listener, whenever the server emits 'updaterooms', this updates the room the client is in
+	socket.on('updaterooms', function(rooms, current_room) {
+		$('#rooms').empty();
+		$.each(rooms, function(key, value) {
+			if(value == current_room){
+				$('#rooms').append('<div>' + value + '</div>');
+			}
+			else {
+				$('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
+			}
+		});
+	});
+	function switchRoom(room){
+		socket.emit('switchRoom', room);
+	}
+	// on load of page
+	$(function(){
+		// when the client clicks SEND
+		$('#go').click( function() {
+			
+			var message = $('#one').val();
+			//document.getElementById('your-words').innerHTML = message;
+			$('#one').val('');
+			// tell server to execute 'sendchat' and send along one parameter
+			socket.emit('sendchat', message);
+		});
+		// when the client hits ENTER on their keyboard
+		
+		$('#one').keypress(function(e) {
+			if(e.which == 13) {
+				$(this).blur();
+				$('#one').focus();
+			}
+		});
+		
+	});
+</script>
+
+
+
+<script>
+	(function($){
+		$(window).load(function(){
+			
+			$(".content").mCustomScrollbar();
+
+		});
+	})(jQuery);
+</script>
+
+
+
+
+
+
+	

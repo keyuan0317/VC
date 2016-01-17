@@ -1,0 +1,128 @@
+/* ------------------- */
+/* TEMPLATE        -- */
+/* ----------------- */
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900,300);
+
+body { 
+	min-height: 100vh; width: 100%; 
+	xoverflow: hidden;
+	color: whitesmoke; 
+	font-size: 16px; 
+	font-family: 'Lato';
+	/* Background gradient courtesy of draGGradients:
+	http://elrumordelaluz.github.io/draGGradients/ 
+	"Cheer Up Emo Kid" */
+	background: radial-gradient(circle at 1.98% 14.97%, #556270, transparent 100%),radial-gradient(circle at 98.02% 52.96%, #FF6B6B, transparent 100%),radial-gradient(circle at 50% 50%, #4a2735, #4a2735 100%);
+} 
+p { margin: 15px 0; line-height: 24px; color: gainsboro; }
+a { color: dodgerblue; text-decoration: none; border-bottom: 1px dotted; }
+a:hover { color: tomato; }
+
+.container { 
+	max-width: 960px; 
+	height: 100%;
+	margin: 0 auto; 
+	padding: 20px;
+}
+
+.clear { clear: both; }
+
+/* ------------------- */
+/* PEN STYLES      -- */
+/* ----------------- */
+
+form { width: 300px; margin: 50px auto; padding-left: 12.5px;}
+
+input:focus { outline: none; }
+
+.field {
+	display: block;
+	box-sizing: border-box;
+	width: 300px; height: 50px;
+	margin-top: 300px;
+	text-align: center;
+	color: tomato;
+	background-color: rgba(0,0,0,0.5);
+	background-color: transparent;
+	border: 1px solid tomato;
+}
+
+.field::-webkit-input-placeholder { color: tomato; opacity: 0.75; }
+.field:-moz-placeholder { color: tomato; opacity: 0.75; }
+.field::-moz-placeholder { color: tomato; opacity: 0.75; }
+.field:-ms-input-placeholder { color: tomato; opacity: 0.75; }
+
+/* I am eschewing DRY for organization of concept */
+
+/* Corners -------- */
+#one {
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+
+
+/* Borders -------- */
+#one{ border-width: 1px 1px 1px 0; }
+
+
+/* Offset -------- */
+#one { padding-right: 25px; }
+
+
+/* Above & Below --------- */
+.above, .below {
+	width: 150px; height: 50px;
+	margin-top: -1px;
+	border: 1px solid tomato;
+}
+
+
+
+.below {
+	position: relative;
+	float: right;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	border-width: 1px 0 0 0;
+}
+
+/* Go -------- */
+#go {
+	height: 50px; width: 50px;
+	position: absolute;
+	top: 35px; right: -25px;
+	color: tomato;
+	background-color: transparent;
+	border: 1px solid tomato;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.5s ease;
+}
+
+#go:focus, #go:hover { color: white; background-color: rgba(255, 99, 71, 0.25); }
+
+/* Your Words ----- */
+#your-words {
+	
+	width: 300px;
+	margin: 20px auto;
+	clear: both;
+	color: tomato;
+	font-size: 18px;
+	line-height: 26px;
+	font-weight: 300;
+	opacity: 0;
+	transition: all 0.5s ease;
+}
+
+/* Reset ------ */
+a#reset { 
+	float: right; 
+	color: white;
+	border: 1px solid white;
+	padding: 5px;
+	transition: all 0.5s ease;
+}
+
+a#reset:hover { color: tomato; border-color: tomato;}
